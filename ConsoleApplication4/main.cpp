@@ -1,10 +1,10 @@
 #include <iostream>
 #include <stdio.h>
 
+#include "common.h"
 using namespace std;
 
 int main(void) {
-
-	cout <<  "Hello World\n";
+	printd("Hello World\n");
 
 }
