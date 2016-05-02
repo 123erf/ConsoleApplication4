@@ -67,16 +67,22 @@ int main(void) {
 				break;
 		}
 
-		displayGrid(array);
+
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(hConsole, 15);
 		if (status == ENEMY_KILLED) {
-			cout << "ENEMY KILLED!!\n"; 
+			
 			score += 10;
 			ex_pos = rand() % WIDTH;
 			ey_pos = rand() % HEIGHT;
 			setPoint(array, ex_pos, ey_pos, ENEMY_ID);
+			displayGrid(array);
+			cout << "ENEMY KILLED!!\n";
 		}
+		else {
+			displayGrid(array);
+		}
+		
 		cout << "Player Position (" << x_pos << ", " << y_pos << ")\n";
 		cout << "Player Score (" << score << ")\n";
 		elapsedTime = ((unsigned long)clock() - begTime) / CLOCKS_PER_SEC;

@@ -15,6 +15,8 @@
 
 #define ENEMY_KILLED 100
 
+#define WALLED false
+
 
 #define HEIGHT 20
 #define WIDTH 40
@@ -44,7 +46,9 @@ int moveUp(int(&array)[HEIGHT][WIDTH], int (&x), int(&y)) {
 	int status = 0;
 	array[y][x] = 0;
 	y = y - 1;
-	if(y<0) y = HEIGHT - 1;
+	if (y < 0) {
+		WALLED == true ? y = 0 : y = HEIGHT - 1;
+	}
 	if (array[y][x] == ENEMY_ID) {
 		status = ENEMY_KILLED;
 	}
@@ -57,7 +61,10 @@ int moveDown(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	int status = 0;
 	array[y][x] = 0;
 	y = y + 1;
-	if (y> HEIGHT - 1) y = 0;
+
+	if (y > HEIGHT - 1){
+		WALLED == true ? y = HEIGHT - 1 : y = 0;
+	}
 	if (array[y][x] == ENEMY_ID) {
 		status = ENEMY_KILLED;
 	}
@@ -70,7 +77,9 @@ int moveLeft(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	int status = 0;
 	array[y][x] = 0;
 	x = x - 1;
-	if (x  < 0) x = WIDTH - 1;
+	if (x < 0) {
+		WALLED == true ? x = 0 : x = WIDTH - 1;
+	}
 	if (array[y][x] == ENEMY_ID) {
 		status = ENEMY_KILLED;
 	}
@@ -83,7 +92,9 @@ int moveRight(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	int status = 0;
 	array[y][x] = 0;
 	x = x + 1;
-	if (x > WIDTH - 1) x = 0;
+	if (x > WIDTH - 1){
+		WALLED == true ? x = WIDTH - 1: x = 0 ;
+	}
 	if (array[y][x] == ENEMY_ID) {
 		status = ENEMY_KILLED;
 	}
