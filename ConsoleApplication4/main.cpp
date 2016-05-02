@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
-
+#include <time.h>
 
 #include "common.h"
 using namespace std;
@@ -13,10 +13,12 @@ int main(void) {
 	int ex_pos, ey_pos;
 	int array[HEIGHT][WIDTH] = { 0 };
 	int status = 0;
+	unsigned long begTime;
+	int elapsedTime = 0;
 	//Create GRID
 	cout << "Height:" << HEIGHT << " Width:" << WIDTH << "\n";
 	displayGrid(array);
-	
+
 	ex_pos = rand() % WIDTH;
 	ey_pos = rand() % HEIGHT;
 
@@ -32,9 +34,8 @@ int main(void) {
 	displayGrid(array);
 
 	char userInput = '0';
-
-	while (true && userInput != 'q'){
-		cout << "Enter Input\n";
+	begTime = clock();
+	while (true && userInput != 'q' && ((unsigned long)clock() - begTime) / CLOCKS_PER_SEC < GAME_TIME){
 		userInput = _getch();
 		system("CLS");
 		cout << "You Entered " << userInput << "\n";
@@ -54,7 +55,10 @@ int main(void) {
 			default:
 				break;
 		}
+
 		displayGrid(array);
+		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(hConsole, 15);
 		if (status == ENEMY_KILLED) {
 			cout << "ENEMY KILLED!!\n"; 
 			score += 10;
@@ -64,8 +68,12 @@ int main(void) {
 		}
 		cout << "Player Position (" << x_pos << ", " << y_pos << ")\n";
 		cout << "Player Score (" << score << ")\n";
-		//displayInfo(array, x_pos, y_pos);
+		elapsedTime = ((unsigned long)clock() - begTime) / CLOCKS_PER_SEC;
+		cout << "Elapsed Time: " << elapsedTime << " Seconds\n"; 
 	}
-
-
+	cout << "GAME OVER!!!\n";
+	cout << "YOUR FINAL SCORE: " << score << "!\n";
+	while (userInput != 'q') {
+		userInput = _getch();
+	}
 }

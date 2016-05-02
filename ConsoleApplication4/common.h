@@ -5,11 +5,13 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <Windows.h>
 
 #define DEBUG_M true
 #define PLAYER_ID 1
 #define ENEMY_ID 2
 
+#define GAME_TIME 30  //seconds
 
 #define ENEMY_KILLED 100
 
@@ -17,6 +19,11 @@
 #define HEIGHT 20
 #define WIDTH 40
 using namespace std;
+HANDLE  hConsole;
+
+void init() {
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+}
 
 void printd(char* msg) {
 	if (DEBUG_M == true && msg!=NULL) {
@@ -89,18 +96,28 @@ int moveRight(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 void displayGrid(int array[HEIGHT][WIDTH]) {
 	cout << "==================================================================================\n";
 	for (int i = 0; i < HEIGHT; i++) {
+		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(hConsole, 15);
 		for (int j = 0; j < WIDTH; j++) {
 			if (j == 0) cout << "|";
 			if (array[i][j] == 0) {
+				hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+				SetConsoleTextAttribute(hConsole, 15);
 				cout << " " << " ";
 			}
 			else if(array[i][j] == PLAYER_ID){
+				hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+				SetConsoleTextAttribute(hConsole, 10);
 				cout << "O" << " ";
 			}
 			else if (array[i][j] == ENEMY_ID){
+				hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+				SetConsoleTextAttribute(hConsole, 12);
 				cout << "X" << " ";
 			}	
 		}
+		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(hConsole, 15);
 		cout << "|\n";
 	}
 	cout << "==================================================================================\n";
