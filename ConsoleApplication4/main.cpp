@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdio.h>
-
+#include <conio.h>
 #include "common.h"
 using namespace std;
 
@@ -24,7 +24,8 @@ int main(void) {
 	char userInput = '0';
 	while (true && userInput != 'q'){
 		cout << "Enter Input\n";
-		cin >> userInput;
+		userInput = _getch();
+		system("CLS");
 		cout << "You Entered " << userInput << "\n";
 		switch (userInput) {
 			case 'w':

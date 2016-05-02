@@ -60,7 +60,12 @@ void moveRight(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 void displayGrid(int array[HEIGHT][WIDTH]) {
 	for (int i = 0; i < HEIGHT; i++) {
 		for (int j = 0; j < WIDTH; j++) {
-			cout << array[i][j] << " ";
+			if (array[i][j] == 0) {
+				cout << " " << " ";
+			}
+			else {
+				cout << "X" << " ";
+			}
 		}
 		cout << "\n";
 	}
