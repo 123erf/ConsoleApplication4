@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <fstream>
 
 #include "common.h"
 using namespace std;
@@ -10,6 +11,7 @@ using namespace std;
 int main(void) {
 	int x_pos, y_pos;
 	int score = 0;
+	int highscore = 0;
 	int ex_pos, ey_pos;
 	int array[HEIGHT][WIDTH] = { 0 };
 	int status = 0;
@@ -21,7 +23,16 @@ int main(void) {
 
 	ex_pos = rand() % WIDTH;
 	ey_pos = rand() % HEIGHT;
-
+	string line;
+	ifstream scorefile("highscore.txt");
+	if (scorefile.is_open())
+	{
+		while (getline(scorefile, line))
+		{
+			highscore = stoi(line);
+		}
+		scorefile.close();
+	}
 
 	x_pos = WIDTH / 2;
 	y_pos = HEIGHT / 2;
@@ -73,6 +84,18 @@ int main(void) {
 	}
 	cout << "GAME OVER!!!\n";
 	cout << "YOUR FINAL SCORE: " << score << "!\n";
+
+	if (score > highscore) {
+		cout << "NEW HIGH SCORE!!!\n";
+		ofstream scorefile("highscore.txt");
+		if (scorefile.is_open())
+		{
+			scorefile << score;
+			scorefile.close();
+		}
+		else cout << "Unable to open file";
+	}
+
 	while (userInput != 'q') {
 		userInput = _getch();
 	}
