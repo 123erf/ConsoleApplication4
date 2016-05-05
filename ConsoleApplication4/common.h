@@ -10,7 +10,7 @@
 
 #define DEBUG_M true
 #define GAME_TIME 60  //seconds
-#define WALLED true
+#define WALLED false
 #define HEIGHT 10
 #define WIDTH 10
 #define START_LENGTH 3
@@ -20,6 +20,8 @@
 #define ENEMY_ID 2
 #define PLAYER_KILLED 100
 #define ENEMY_KILLED 200
+#define ILLEGAL_MOVE 300
+#define HIT_WALL 400
 
 
 
@@ -71,10 +73,15 @@ void setPoint(int (&array)[HEIGHT][WIDTH], int x, int y, int ID) {
 int moveUp(int(&array)[HEIGHT][WIDTH], int (&x), int(&y)) {
 	int status = 0;
 	point p1;
+	if (array[y-1][x] == PLAYER_ID) {
+		cout << "Warning Illegal Move!\n";
+		return ILLEGAL_MOVE;
+	}
 	y = y - 1;
 	if (y < 0) {
 		WALLED == true ? y = 0 : y = HEIGHT - 1;
 	}
+
 	if (array[y][x] == ENEMY_ID) {
 		status = ENEMY_KILLED;
 		snake_length++;
@@ -96,6 +103,10 @@ int moveUp(int(&array)[HEIGHT][WIDTH], int (&x), int(&y)) {
 int moveDown(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	int status = 0;
 	point p1;
+	if (array[y+1][x] == PLAYER_ID) {
+		cout << "Warning Illegal Move!\n";
+		return ILLEGAL_MOVE;
+	}
 	y = y + 1;
 
 	if (y > HEIGHT - 1){
@@ -103,6 +114,7 @@ int moveDown(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	}
 	p1.y = y;
 	p1.x = x;
+
 	if (array[y][x] == ENEMY_ID) {
 		status = ENEMY_KILLED;
 		snake_length++;
@@ -122,6 +134,10 @@ int moveDown(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 int moveLeft(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	int status = 0;
 	point p1;
+	if (array[y][x-1] == PLAYER_ID) {
+		cout << "Warning Illegal Move!\n";
+		return ILLEGAL_MOVE;
+	}
 	x = x - 1;
 
 	if (x < 0) {
@@ -129,6 +145,7 @@ int moveLeft(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	}
 	p1.y = y;
 	p1.x = x;
+
 	if (array[y][x] == ENEMY_ID) {
 		status = ENEMY_KILLED;
 		snake_length++;
@@ -149,6 +166,10 @@ int moveLeft(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 int moveRight(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	int status = 0;
 	point p1;
+	if (array[y][x+1] == PLAYER_ID) {
+		cout << "Warning Illegal Move!\n";
+		return ILLEGAL_MOVE;
+	}
 	x = x + 1;
 
 	if (x > WIDTH - 1){
@@ -156,6 +177,7 @@ int moveRight(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	}
 	p1.y = y;
 	p1.x = x;
+
 	if (array[y][x] == ENEMY_ID) {
 		status = ENEMY_KILLED;
 		snake_length++;
