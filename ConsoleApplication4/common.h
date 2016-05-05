@@ -13,7 +13,7 @@
 
 #define GAME_TIME 30  //seconds
 
-#define ENEMY_KILLED 100
+#define ENEMY_KILLED 100  //STATUS ID
 
 #define WALLED false
 

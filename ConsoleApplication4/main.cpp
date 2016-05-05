@@ -21,8 +21,8 @@ int main(void) {
 	cout << "Height:" << HEIGHT << " Width:" << WIDTH << "\n";
 	displayGrid(array);
 
-	ex_pos = rand() % WIDTH;
-	ey_pos = rand() % HEIGHT;
+	ex_pos = (rand() + clock()) % WIDTH;
+	ey_pos = (rand() + clock()) % HEIGHT;
 	string line;
 	ifstream scorefile("highscore.txt");
 	if (scorefile.is_open())
@@ -73,8 +73,8 @@ int main(void) {
 		if (status == ENEMY_KILLED) {
 			
 			score += 10;
-			ex_pos = rand() % WIDTH;
-			ey_pos = rand() % HEIGHT;
+			ex_pos = (rand() + clock()) % WIDTH;
+			ey_pos = (rand() + clock()) % HEIGHT;
 			setPoint(array, ex_pos, ey_pos, ENEMY_ID);
 			displayGrid(array);
 			cout << "ENEMY KILLED!!\n";
