@@ -72,16 +72,26 @@ int main(void) {
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(hConsole, 15);
 		if (status == ENEMY_KILLED) {
-			
 			score += 10;
-			ex_pos = (rand() + clock()) % WIDTH;
-			ey_pos = (rand() + clock()) % HEIGHT;
+			bool goodSpawn = false;
+			while (!goodSpawn) {
+				ex_pos = (rand() + clock()) % WIDTH;
+				ey_pos = (rand() + clock()) % HEIGHT;
+				if (array[ey_pos][ex_pos] != PLAYER_ID) goodSpawn = true;
+			}
 			setPoint(array, ex_pos, ey_pos, ENEMY_ID);
 			displayGrid(array);
 			cout << "ENEMY KILLED!!\n";
 		}
 		else {
 			displayGrid(array);
+		}
+		if (status == PLAYER_KILLED) {
+			cout << "Player Killed!\n";
+			break;
+		}
+		else if (status == ILLEGAL_MOVE) {
+			cout << "Warning: Illegal Move\n";
 		}
 		
 		cout << "Player Position (" << x_pos << ", " << y_pos << ")\n";

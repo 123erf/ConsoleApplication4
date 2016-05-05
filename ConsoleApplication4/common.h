@@ -11,8 +11,8 @@
 #define DEBUG_M true
 #define GAME_TIME 60  //seconds
 #define WALLED false
-#define HEIGHT 10
-#define WIDTH 10
+#define HEIGHT 20
+#define WIDTH 40
 #define START_LENGTH 3
 #define MAX_LENGTH 10
 //Player and Staus IDs
@@ -74,8 +74,20 @@ int moveUp(int(&array)[HEIGHT][WIDTH], int (&x), int(&y)) {
 	int status = 0;
 	point p1;
 	if (array[y-1][x] == PLAYER_ID) {
-		cout << "Warning Illegal Move!\n";
-		return ILLEGAL_MOVE;
+		std::list<point>::const_iterator iterator = snake_pos.begin();
+		++iterator;
+		if (((*iterator).y == (y - 1)) && ((*iterator).x == x)) {
+			cout << "Warning Illegal Move!\n";
+			return ILLEGAL_MOVE;
+		}
+		else {
+			point bp1 = snake_pos.back();
+			if(!((bp1.y == (y - 1)) && (bp1.x == x))) {
+				cout << "Player killed!\n";
+				return PLAYER_KILLED;
+			}
+		}
+
 	}
 	y = y - 1;
 	if (y < 0) {
@@ -104,8 +116,20 @@ int moveDown(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	int status = 0;
 	point p1;
 	if (array[y+1][x] == PLAYER_ID) {
-		cout << "Warning Illegal Move!\n";
-		return ILLEGAL_MOVE;
+		std::list<point>::const_iterator iterator = snake_pos.begin();
+		++iterator;
+		if (((*iterator).y == (y + 1)) && ((*iterator).x == x)) {
+			cout << "Warning Illegal Move!\n";
+			return ILLEGAL_MOVE;
+		}
+		else {
+			point bp1 = snake_pos.back();
+			if (!((bp1.y == (y + 1)) && (bp1.x == x))) {
+				cout << "Player killed!\n";
+				return PLAYER_KILLED;
+			}
+		}
+
 	}
 	y = y + 1;
 
@@ -135,8 +159,20 @@ int moveLeft(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	int status = 0;
 	point p1;
 	if (array[y][x-1] == PLAYER_ID) {
-		cout << "Warning Illegal Move!\n";
-		return ILLEGAL_MOVE;
+		std::list<point>::const_iterator iterator = snake_pos.begin();
+		++iterator;
+		if (((*iterator).y == (y)) && ((*iterator).x == (x-1))) {
+			cout << "Warning Illegal Move!\n";
+			return ILLEGAL_MOVE;
+		}
+		else {
+			point bp1 = snake_pos.back();
+			if (!((bp1.y == (y)) && (bp1.x == (x-1)))) {
+				cout << "Player killed!\n";
+				return PLAYER_KILLED;
+			}
+		}
+
 	}
 	x = x - 1;
 
@@ -167,8 +203,18 @@ int moveRight(int(&array)[HEIGHT][WIDTH], int(&x), int(&y)) {
 	int status = 0;
 	point p1;
 	if (array[y][x+1] == PLAYER_ID) {
-		cout << "Warning Illegal Move!\n";
-		return ILLEGAL_MOVE;
+		std::list<point>::const_iterator iterator = snake_pos.begin();
+		++iterator;
+		if (((*iterator).y == (y)) && ((*iterator).x == (x+1))) {
+			return ILLEGAL_MOVE;
+		}
+		else {
+			point bp1 = snake_pos.back();
+			if (!((bp1.y == (y)) && (bp1.x == (x + 1)))) {
+				return PLAYER_KILLED;
+			}
+		}
+
 	}
 	x = x + 1;
 
