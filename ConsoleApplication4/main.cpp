@@ -21,8 +21,7 @@ int main(void) {
 	cout << "Height:" << HEIGHT << " Width:" << WIDTH << "\n";
 	displayGrid(array);
 
-	ex_pos = (rand() + clock()) % WIDTH;
-	ey_pos = (rand() + clock()) % HEIGHT;
+	init();
 	string line;
 	ifstream scorefile("highscore.txt");
 	if (scorefile.is_open())
@@ -36,12 +35,14 @@ int main(void) {
 
 	x_pos = WIDTH / 2;
 	y_pos = HEIGHT / 2;
-	
+	ex_pos = (rand() + clock()) % WIDTH;
+	ey_pos = (rand() + clock()) % HEIGHT;
+
 	setPoint(array, x_pos,y_pos, PLAYER_ID);
 	setPoint(array, ex_pos, ey_pos, ENEMY_ID);
 	
 	cout << "TEST x:" << x_pos << " y:" << y_pos << "\n";
-	system("CLS");
+	//system("CLS");
 	displayGrid(array);
 
 	char userInput = '0';
